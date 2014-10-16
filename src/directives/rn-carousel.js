@@ -306,6 +306,7 @@
                     }
 
                     function swipeStart(coords, event) {
+                        event.stopPropagation();
                         //console.log('swipeStart', coords, event);
                         $document.bind('mouseup', documentMouseUpEvent);
                         pressed = true;
@@ -318,6 +319,7 @@
                     }
 
                     function swipeMove(coords, event) {
+                        event.stopPropagation();
                         //console.log('swipeMove', coords, event);
                         var x, delta;
                         if (pressed) {
