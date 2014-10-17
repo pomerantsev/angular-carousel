@@ -319,7 +319,6 @@
                     }
 
                     function swipeStart(coords, event) {
-                        emitAnimationStartEvent();
                         event.stopPropagation();
                         //console.log('swipeStart', coords, event);
                         $document.bind('mouseup', documentMouseUpEvent);
@@ -340,6 +339,9 @@
                             x = coords.x;
                             delta = startX - x;
                             if (delta > 2 || delta < -2) {
+                                if (!swipeMoved) {
+                                    emitAnimationStartEvent();
+                                }
                                 swipeMoved = true;
                                 startX = x;
 

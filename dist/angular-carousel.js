@@ -1,6 +1,6 @@
 /**
  * Angular Carousel - Mobile friendly touch carousel for AngularJS
- * @version v0.2.5 - 2014-10-17
+ * @version v0.2.5 - 2014-10-18
  * @link http://revolunet.github.com/angular-carousel
  * @author Julien Bouquillon <julien@revolunet.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -443,7 +443,6 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                     }
 
                     function swipeStart(coords, event) {
-                        emitAnimationStartEvent();
                         event.stopPropagation();
                         //console.log('swipeStart', coords, event);
                         $document.bind('mouseup', documentMouseUpEvent);
@@ -464,6 +463,9 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                             x = coords.x;
                             delta = startX - x;
                             if (delta > 2 || delta < -2) {
+                                if (!swipeMoved) {
+                                    emitAnimationStartEvent();
+                                }
                                 swipeMoved = true;
                                 startX = x;
 
