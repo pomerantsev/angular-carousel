@@ -1,6 +1,6 @@
 /**
  * Angular Carousel - Mobile friendly touch carousel for AngularJS
- * @version v0.2.5 - 2014-10-16
+ * @version v0.2.5 - 2014-10-17
  * @link http://revolunet.github.com/angular-carousel
  * @author Julien Bouquillon <julien@revolunet.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -213,6 +213,7 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                             scope.carouselExposedIndex = newValue;
                         });
                         scope.$watch('indicatorIndex', function(newValue) {
+                            emitAnimationStartEvent();
                             goToSlide(newValue, true);
                         });
 
@@ -223,6 +224,7 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                     }
 
                     scope.$watch('carouselExposedIndex', function(newValue) {
+                        emitAnimationStartEvent();
                         goToSlide(newValue, true);
                     });
 
@@ -292,6 +294,14 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                         updateContainerWidth();
                     }
 
+                    function emitAnimationStartEvent () {
+                        scope.$emit('rnCarouselAnimationStarted');
+                    }
+
+                    function emitAnimationDoneEvent () {
+                        scope.$emit('rnCarouselAnimationDone');
+                    }
+
                     function updateIndicatorArray() {
                         // generate an array to be used by the indicators
                         var items = [];
@@ -323,6 +333,7 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                     function scroll(x) {
                         // use CSS 3D transform to move the carousel
                         if (isNaN(x)) {
+                            emitAnimationDoneEvent();
                             x = scope.carouselIndex * containerWidth;
                         }
 
@@ -353,6 +364,8 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                             } else {
                                 goToSlide(destination / containerWidth);
                             }
+                        } else {
+                            emitAnimationDoneEvent();
                         }
                     }
 
@@ -430,6 +443,7 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                     }
 
                     function swipeStart(coords, event) {
+                        emitAnimationStartEvent();
                         event.stopPropagation();
                         //console.log('swipeStart', coords, event);
                         $document.bind('mouseup', documentMouseUpEvent);
@@ -512,7 +526,8 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                                 move: swipeMove,
                                 end: swipeEnd,
                                 cancel: function(event) {
-                                  swipeEnd({}, event);
+                                    emitAnimationDoneEvent();
+                                    swipeEnd({}, event);
                                 }
                             });
                         } else {

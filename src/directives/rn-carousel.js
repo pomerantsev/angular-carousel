@@ -89,6 +89,7 @@
                             scope.carouselExposedIndex = newValue;
                         });
                         scope.$watch('indicatorIndex', function(newValue) {
+                            emitAnimationStartEvent();
                             goToSlide(newValue, true);
                         });
 
@@ -99,6 +100,7 @@
                     }
 
                     scope.$watch('carouselExposedIndex', function(newValue) {
+                        emitAnimationStartEvent();
                         goToSlide(newValue, true);
                     });
 
@@ -168,6 +170,14 @@
                         updateContainerWidth();
                     }
 
+                    function emitAnimationStartEvent () {
+                        scope.$emit('rnCarouselAnimationStarted');
+                    }
+
+                    function emitAnimationDoneEvent () {
+                        scope.$emit('rnCarouselAnimationDone');
+                    }
+
                     function updateIndicatorArray() {
                         // generate an array to be used by the indicators
                         var items = [];
@@ -199,6 +209,7 @@
                     function scroll(x) {
                         // use CSS 3D transform to move the carousel
                         if (isNaN(x)) {
+                            emitAnimationDoneEvent();
                             x = scope.carouselIndex * containerWidth;
                         }
 
@@ -229,6 +240,8 @@
                             } else {
                                 goToSlide(destination / containerWidth);
                             }
+                        } else {
+                            emitAnimationDoneEvent();
                         }
                     }
 
@@ -306,6 +319,7 @@
                     }
 
                     function swipeStart(coords, event) {
+                        emitAnimationStartEvent();
                         event.stopPropagation();
                         //console.log('swipeStart', coords, event);
                         $document.bind('mouseup', documentMouseUpEvent);
@@ -388,7 +402,8 @@
                                 move: swipeMove,
                                 end: swipeEnd,
                                 cancel: function(event) {
-                                  swipeEnd({}, event);
+                                    emitAnimationDoneEvent();
+                                    swipeEnd({}, event);
                                 }
                             });
                         } else {
