@@ -141,6 +141,7 @@
                                         newValue = 0;
                                         updateParentIndex(newValue);
                                     }
+                                    emitAnimationStartEvent();
                                     goToSlide(newValue, animOnIndexChange);
                                 }
                             });
