@@ -320,7 +320,7 @@
                     }
 
                     function swipeStart(coords, event) {
-                        event.stopPropagation();
+                        // event.stopPropagation();
                         //console.log('swipeStart', coords, event);
                         $document.bind('mouseup', documentMouseUpEvent);
                         pressed = true;
