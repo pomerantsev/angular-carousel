@@ -463,12 +463,12 @@
                     // handle orientation change
                     var winEl = angular.element($window);
                     winEl.bind('orientationchange', onOrientationChange);
-                    winEl.bind('resize', onOrientationChange);
+                    // winEl.bind('resize', onOrientationChange);
 
                     scope.$on('$destroy', function() {
                         $document.unbind('mouseup', documentMouseUpEvent);
                         winEl.unbind('orientationchange', onOrientationChange);
-                        winEl.unbind('resize', onOrientationChange);
+                        // winEl.unbind('resize', onOrientationChange);
                     });
 
                 };

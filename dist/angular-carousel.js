@@ -1,6 +1,6 @@
 /**
  * Angular Carousel - Mobile friendly touch carousel for AngularJS
- * @version v0.2.5 - 2014-10-31
+ * @version v0.2.5 - 2014-11-10
  * @link http://revolunet.github.com/angular-carousel
  * @author Julien Bouquillon <julien@revolunet.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -587,12 +587,12 @@ angular.module('angular-carousel').run(['$templateCache', function($templateCach
                     // handle orientation change
                     var winEl = angular.element($window);
                     winEl.bind('orientationchange', onOrientationChange);
-                    winEl.bind('resize', onOrientationChange);
+                    // winEl.bind('resize', onOrientationChange);
 
                     scope.$on('$destroy', function() {
                         $document.unbind('mouseup', documentMouseUpEvent);
                         winEl.unbind('orientationchange', onOrientationChange);
-                        winEl.unbind('resize', onOrientationChange);
+                        // winEl.unbind('resize', onOrientationChange);
                     });
 
                 };
