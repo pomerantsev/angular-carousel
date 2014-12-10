@@ -49,20 +49,20 @@ $rn-carousel-control-height: 30px;
   cursor: pointer;
 
   span {
-    transition: color .2s ease-out;
     padding: 0 5px;
-    color: #333;
     &:before {
-      content: "\25cf";
-    }
-    &.ng-leave {
-      // see https://github.com/revolunet/angular-carousel/issues/179
-      transition: none !important;
+      display: inline-block;
+      content: "";
+      width: 0.5em;
+      height: 0.5em;
+      border-radius: 50%;
+      background-color: #333;;
+      transition: background-color .2s ease-out;
     }
   }
 
-  .active {
-    color: white;
+  .active:before {
+    background-color: white;
   }
 }
 

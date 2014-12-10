@@ -48,17 +48,18 @@
   bottom: 0;
   cursor: pointer; }
   .rn-carousel-indicator span {
-    -webkit-transition: color .2s ease-out;
-    transition: color .2s ease-out;
-    padding: 0 5px;
-    color: #333; }
+    padding: 0 5px; }
     .rn-carousel-indicator span:before {
-      content: "\25cf"; }
-    .rn-carousel-indicator span.ng-leave {
-      -webkit-transition: none !important;
-      transition: none !important; }
-  .rn-carousel-indicator .active {
-    color: white; }
+      display: inline-block;
+      content: "";
+      width: 0.5em;
+      height: 0.5em;
+      border-radius: 50%;
+      background-color: #333;
+      -webkit-transition: background-color .2s ease-out;
+      transition: background-color .2s ease-out; }
+  .rn-carousel-indicator .active:before {
+    background-color: white; }
 
 /* controls */
 .rn-carousel-control {
@@ -80,3 +81,5 @@
     right: 0.5em; }
     .rn-carousel-control.rn-carousel-control-next:before {
       content: ">"; }
+
+/*# sourceMappingURL=angular-carousel.css.map */
